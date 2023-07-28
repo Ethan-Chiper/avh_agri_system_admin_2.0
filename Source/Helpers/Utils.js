@@ -1,8 +1,8 @@
 const {customAlphabet} = require('nanoid');
-const request = require("request");
-const Config = require('../App/Config')
-const jwt = require("jsonwebtoken");
-const moment = require("moment");
+const request = require('request');
+const Config = require('../App/Config');
+const jwt = require('jsonwebtoken');
+const moment = require('moment');
 
 function utils() {
 	let self = this;
@@ -24,14 +24,12 @@ function utils() {
 			form: {
 				username: id
 			},
-			method:"POST"
-		}
+			method: 'POST'
+		};
 		request.post(options, (err, data) => {
 			console.log(err);
-			if (!err)
-				self.generateAuthToken(id, callback);
+			if (!err) self.generateAuthToken(id, callback);
 			else if (callback) callback(null);
-
 		});
 	};
 	/***
@@ -40,30 +38,35 @@ function utils() {
 	 * @param callback
 	 */
 	this.generateAuthToken = (user, callback) => {
-		let exp = moment().add(1, "days").unix();
+		let exp = moment().add(1, 'days').unix();
 
-		request.post({
-			url: Config.KONG_URL + user + "/jwt",
-			headers: {
-				"Content-Type": "application/x-www-form-urlencoded"
-			}
-		}, (err, response, body) => {
-			if (body) {
-				let bodyResponse = JSON.parse(body)
-				try {
-					let token = jwt.sign({
-						iss: bodyResponse.key,
-						exp: exp
-					}, bodyResponse.secret);
-					callback(token, body);
-				} catch (err) {
-					console.log("Exception from generateAuthToken" + err.message);
-					callback(null, {});
+		request.post(
+			{
+				url: Config.KONG_URL + user + '/jwt',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
 				}
-			} else
-				callback(null, {});
-		});
-	}
+			},
+			(err, response, body) => {
+				if (body) {
+					let bodyResponse = JSON.parse(body);
+					try {
+						let token = jwt.sign(
+							{
+								iss: bodyResponse.key,
+								exp: exp
+							},
+							bodyResponse.secret
+						);
+						callback(token, body);
+					} catch (err) {
+						console.log('Exception from generateAuthToken' + err.message);
+						callback(null, {});
+					}
+				} else callback(null, {});
+			}
+		);
+	};
 }
 
 module.exports = new utils();

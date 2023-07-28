@@ -1,0 +1,12 @@
+node_modules/
+.vscode/
+.husky/
+.editorconfig
+.prettierignore
+.prettierrc.json
+.eslintignore
+.eslintrc.js
+mochawesome-report
+.nyc_output/
+package-lock.json
+Extras/

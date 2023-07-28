@@ -3,7 +3,6 @@ const {isEmpty, networkCall} = require('./Utils');
 const jwt = require('jsonwebtoken');
 
 const KongUtils = {
-
 	/**
 	 * Create kong consumer
 	 * @param data
@@ -41,7 +40,6 @@ const KongUtils = {
 	 * @param user
 	 */
 	addUserInGroup: async (user) => {
-
 		for (let primaryRoutes of whitelist) {
 			let postData = {
 				url: Config.KONG_URL + user?.id + '/acls',

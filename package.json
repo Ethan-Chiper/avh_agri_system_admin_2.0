@@ -4,7 +4,9 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "mocha Test/initTest.js --timeout=15000",
+		"prepare": "husky install",
+		"lint": "eslint ./ --fix,"
 	},
 	"author": "",
 	"license": "ISC",
@@ -23,5 +25,12 @@
 		"request": "^2.88.2",
 		"sonarqube-scanner": "^3.0.1",
 		"winston": "^3.10.0"
+	},
+	"devDependencies": {
+		"chai": "^4.3.7",
+		"eslint": "^8.46.0",
+		"eslint-config-prettier": "^8.9.0",
+		"eslint-plugin-prettier": "^5.0.0",
+		"husky": "^8.0.0"
 	}
 }
