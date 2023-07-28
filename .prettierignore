@@ -1,0 +1,15 @@
+.github/
+.husky/
+.vscode/
+package-lock.json
+buildresults/
+coverage/
+depcruise/
+deploy/
+docs/
+jsdoc_default/
+logs/
+node_modules/
+stats/
+templates/
+mochawesome-report/
