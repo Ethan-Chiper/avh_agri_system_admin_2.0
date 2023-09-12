@@ -1,15 +1,14 @@
-const TransactionModel = require('../Models/TransactionModel').getTransactionModel();
-const TransactionUpiModel = require('../Models/Transaction_upiModel').getTransactioUpiModel();
+const TransactionModel = require('../Models/TransactionModel');
+const TransactionUpiModel = require('../Models/Transaction_upiModel');
 const Responder = require('../App/Responder');
 const moment = require('moment');
-function TransactionController() {
+const TransactionController= {
 	/**
-	 *
+	 * create transaction
 	 * @param {*} req
 	 * @param {*} res
 	 */
-
-	this.createTransaction = (req, res) => {
+	createTransaction : (req, res) => {
 		let requestData = req.body;
 		TransactionModel.create(requestData, (err, createData) => {
 			if (!err && createData) {
@@ -18,15 +17,13 @@ function TransactionController() {
 				return Responder.sendFailureMessage(res, 'create Failure');
 			}
 		});
-	};
-
+	},
 	/**
 	 * transactionUPIDashboard
 	 * @param {*} req
 	 * @param {*} res
 	 */
-
-	this.transactionUPIDashboard = (req, res) => {
+	transactionUPIDashboard : (req, res) => {
 		let format = 'YYYYMMDD';
 		let date = new Date();
 		let dateTime = moment(date).format(format);
@@ -82,7 +79,7 @@ function TransactionController() {
 				});
 			}
 		);
-	};
+	}
 }
 
-module.exports = new TransactionController();
+module.exports = TransactionController;
