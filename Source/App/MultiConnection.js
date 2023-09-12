@@ -19,7 +19,6 @@ function MultiDBConnection() {
 				useUnifiedTopology: true,
 				serverSelectionTimeoutMS: 10000
 			})
-			// mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
 			.then(() => logger.info('ADMIN DB Connected'))
 			.catch((err) => logger.info('ADMIN DB Caught', err.stack));
 		mongoose.set('debug', true);
@@ -30,7 +29,6 @@ function MultiDBConnection() {
 				useUnifiedTopology: true,
 				serverSelectionTimeoutMS: 10000
 			})
-			// mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
 			.then(() => logger.info('FARMER DB Connected'))
 			.catch((err) => logger.info('FARMER DB Caught', err.stack));
 		mongoose.set('debug', true);
@@ -41,13 +39,10 @@ function MultiDBConnection() {
 				useUnifiedTopology: true,
 				serverSelectionTimeoutMS: 10000
 			})
-			// mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
 			.then(() => logger.info('TRANSACTION DB Connected'))
 			.catch((err) => logger.info('TRANSACTION DB Caught', err.stack));
 		mongoose.set('debug', true);
-		// customer.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).
-		//     then(() => console.log('CUSTOMER DB Connected')).
-		//     catch(err => console.log('CUSTOMER DB Caught', err.stack));
+
 		mongoose
 			.connect(DB_URL, {
 				useNewUrlParser: true,
