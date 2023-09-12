@@ -1,8 +1,13 @@
 const Responder = require('../App/Responder');
 const Utils = require('../Helpers/Utils');
-const CustomerModel = require('../Models/CustomerModel').getCustomerModel();
-function Controllers() {
-	this.signUp = (req, res) => {
+const CustomerModel = require('../Models/CustomerModel');
+const Controllers = {
+	/***
+	 * create customer
+	 * @param req
+	 * @param res
+	 */
+	signUp : (req, res) => {
 		let data = req.body;
 
 		let customerData = {
@@ -143,7 +148,7 @@ function Controllers() {
 			if (!err && createData) return Responder.sendSuccessData(res, 'Admin create', createData);
 			return Responder.sendFailureMessage(res, 'Admin create failure');
 		});
-	};
+	}
 }
 
-module.exports = new Controllers();
+module.exports = Controllers;

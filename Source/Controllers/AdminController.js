@@ -1,17 +1,17 @@
 const Responder = require('../App/Responder');
-const {} = require('../Helpers/Utils');
-const AdminModel = require('../Models/AdminModel').getAdminModel();
-function Controllers() {
+const {getNanoId} = require('../Helpers/Utils');
+const AdminModel = require('../Models/AdminModel');
+const Controllers = {
 	/**
 	 * Admin SignUp
 	 * @param {*} req
 	 * @param {*} res
 	 */
-	this.signUp = (req, res) => {
+	signUp: (req, res) => {
 		let data = req.body;
 
 		let adminData = {
-			admin_id: Utils.getNanoId(),
+			admin_id: getNanoId(),
 			name: {
 				full: data?.name?.full
 			},
@@ -38,17 +38,17 @@ function Controllers() {
 			if (!err && createData) return Responder.sendSuccessData(res, 'Admin create', createData);
 			return Responder.sendFailureMessage(res, 'Admin create failure');
 		});
-	};
+	},
 
 	/**
 	 * Admin list
 	 */
-	this.details = (adminId, res) => {
+	details: (adminId, res) => {
 		AdminModel.find({admin_id: adminId}, (err, getAdminData) => {
 			if (!err && getAdminData) return Responder.sendSuccessData(res, 'Admin Details', getAdminData);
 			return Responder.sendFailureMessage(res, 'Data not Found');
 		});
-	};
-}
+	}
+};
 
-module.exports = new Controllers();
+module.exports = Controllers;

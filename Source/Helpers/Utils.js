@@ -4,21 +4,20 @@ const Config = require('../App/Config');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 
-function utils() {
-	let self = this;
+const utils = {
 
 	/***
-	 *
+	 *generate uniqu nanoID
 	 */
-	this.getNanoId = () => {
+	getNanoId: () => {
 		let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
 		let randomId = customAlphabet(alphabet, 8);
 		return randomId();
-	};
+	},
 	/***
-	 *
+	 *generate consumer
 	 */
-	this.createUserAndTokenInKong = (id, callback) => {
+	createUserAndTokenInKong: (id, callback) => {
 		let options = {
 			url: Config.KONG_URL,
 			form: {
@@ -28,16 +27,16 @@ function utils() {
 		};
 		request.post(options, (err, data) => {
 			console.log(err);
-			if (!err) self.generateAuthToken(id, callback);
+			if (!err) utils.generateAuthToken(id, callback);
 			else if (callback) callback(null);
 		});
-	};
+	},
 	/***
 	 *
 	 * @param user
 	 * @param callback
 	 */
-	this.generateAuthToken = (user, callback) => {
+	generateAuthToken: (user, callback) => {
 		let exp = moment().add(1, 'days').unix();
 
 		request.post(
@@ -66,7 +65,7 @@ function utils() {
 				} else callback(null, {});
 			}
 		);
-	};
-}
+	}
+};
 
-module.exports = new utils();
+module.exports = utils;
