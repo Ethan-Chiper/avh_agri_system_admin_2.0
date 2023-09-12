@@ -1,5 +1,5 @@
-const TransactionModel = require('../Models/TransactionModel').getTransactionModel();
-const TransactionUpiModel = require('../Models/Transaction_upiModel').getTransactioUpiModel();
+const TransactionModel = require('../Models/TransactionModel');
+const TransactionUpiModel = require('../Models/Transaction_upiModel');
 const moment = require('moment');
 const cron = require('node-cron');
 const Responder = require('../App/Responder');
@@ -8,32 +8,29 @@ const logger = winston.createLogger({
 	transports: [new winston.transports.Console()]
 });
 
-function SettlementController() {
-	const self = this;
-
+const SettlementController = {
 	/**
 	 * generateSettlementCron
 	 */
-	this.generateSettlementCron = () => {
+	generateSettlementCron : () => {
 		cron.schedule(
 			'*/2 * * * * *',
 			() => {
 				logger.log(
 					'Running a job on ' + moment(new Date()).tz('Asia/Kolkata').format() + ' at Asia/Kolkata timezone'
 				);
-				self.generateSettlement();
+				SettlementController.generateSettlement();
 			},
 			{
 				schedule: true,
 				timezone: 'Asia/Kolkata'
 			}
 		);
-	};
-
+	},
 	/**
 	 * generateSettlement
 	 */
-	this.generateSettlement = (req, res) => {
+	generateSettlement : (req, res) => {
 		let format = 'YYYYMMDD';
 		let date = new Date();
 		let dateTime = moment(date).format(format);
@@ -88,7 +85,7 @@ function SettlementController() {
 				});
 			}
 		);
-	};
+	}
 }
 
-module.exports = new SettlementController();
+module.exports = SettlementController;

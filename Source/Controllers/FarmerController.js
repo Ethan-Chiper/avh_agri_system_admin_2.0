@@ -1,19 +1,19 @@
 /* eslint-disable no-unused-vars */
 const Responder = require('../App/Responder');
 const Utils = require('../Helpers/Utils');
-const FarmerModel = require('../Models/FarmerModel').getFarmerModel();
+const FarmerModel = require('../Models/FarmerModel');
 const winston = require('winston');
 const logger = winston.createLogger({
 	transports: [new winston.transports.Console()]
 });
 
-function Controllers() {
+const Controllers = {
 	/**
 	 * Farmer SignUp
 	 * @param {*} req
 	 * @param {*} res
 	 */
-	this.signUp = async (req, res) => {
+	signUp : async (req, res) => {
 		try {
 			let data = req.body;
 			let farmerData = {
@@ -80,19 +80,19 @@ function Controllers() {
 		} catch (error) {
 			return Responder.sendFailureMessage(res, 'User is invalid');
 		}
-	};
+	},
 	/**
 	 * Farmer List
 	 * @param {*} farmerId
 	 * @param {*} res
 	 */
-	this.details = (farmerId, res) => {
+	details : (farmerId, res) => {
 		FarmerModel.find({farmer_id: farmerId}, (err, getFarmerData) => {
 			logger.error(err);
 			if (!err && getFarmerData) return Responder.sendSuccessData(res, 'Farmer Details', getFarmerData);
 			return Responder.sendFailureMessage(res, 'Farmer not found');
 		});
-	};
+	}
 }
 
-module.exports = new Controllers();
+module.exports = Controllers;
