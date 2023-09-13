@@ -10,21 +10,21 @@ const customerSchema = new customerConnection.Schema({
 	},
 	mobile: {
 		country_code: {type: String, default: '+91'},
-		national_number: String,
+		national_number: {type: String, default: ''},
 		is_verified: {type: Boolean, default: false},
-		otp: String
+		otp: {type: String, default: '0123'}
 	},
 	phone: {
 		country_code: {type: String, default: '+91'},
 		national_number: String,
 		is_verified: {type: Boolean, default: false},
-		otp: String
+		otp: {type: String, default: '2010'}
 	},
 	email: {type: String, unique: true},
 	verification_code: String,
 	is_verified: {type: Boolean, default: false},
 	status: {type: String, default: 'active'},
-	password: String,
+	password: {type: String, default: '0000'},
 
 	settings: {
 		invoice: {
@@ -38,28 +38,22 @@ const customerSchema = new customerConnection.Schema({
 			label: {type: String, default: 'Indian Standard Time'},
 			offset: {type: String, default: '+0530'}
 		},
-		branding: {
-			theme_color: String,
-			text_color: String,
-			icon: String
-		},
 		is_agri_sys_branding: {type: Boolean, default: true},
 		is_terms_page: {type: Boolean, default: false}
 	},
 	acc_type: {type: String, default: 'individual'},
-	image: String,
 	address: {
 		billing: {
-			line_1: String,
-			line_2: String,
+			line_1: {type: Object, default: ''},
+			line_2: {type: Object, default: ''},
 			city: {type: Object, default: {}},
-			zipcode: String,
+			zipcode: {type: Object, default: ''},
 			country: {type: Object, default: {}},
 			state: {type: Object, default: {}}
 		},
 		shipping: {
-			line_1: String,
-			line_2: String,
+			line_1: {type: Object, default: ''},
+			line_2: {type: Object, default: ''},
 			city: {type: Object, default: {}},
 			zipcode: String,
 			country: {type: Object, default: {}},
@@ -71,13 +65,9 @@ const customerSchema = new customerConnection.Schema({
 	bank_info: Object,
 	bank_approval_status: {type: String, default: 'pending'},
 	internal: {
-		secure_login: {
-			code: String,
-			requested_time: Date
-		},
 		reference: {
-			id: String,
-			invite_id: String
+			id: {type: Object, default: ''},
+			invite_id: {type: Object, default: ''}
 		},
 		registration: {
 			type: {type: String, default: 'merchant'},
@@ -89,37 +79,22 @@ const customerSchema = new customerConnection.Schema({
 	is_referral_invite_enabled: {type: Boolean, default: false},
 	is_2fa_enabled: {type: Boolean, default: false},
 	pg_category: {type: String, default: 'ecom'},
-	business: {
-		name: String,
-		business_type: {
-			code: String,
-			name: String
-		},
-		website: String,
-		gst: String
-	},
 	last_login: {
 		from: {type: String, default: 'web'},
 		meta: Object
 	},
 	documents: {
 		aadhar: {
-			number: Number,
+			number:{type: String,default:''},
 			image: {
-				front: String,
-				back: String
-			}
-		},
-		registration: {
-			number: String,
-			image: {
-				front: String
+				front:{type: String,default:''},
+				back: {type: String,default:''}
 			}
 		},
 		pan: {
-			number: String,
+			number: {type: String,default:''},
 			image: {
-				front: String
+				front: {type: String,default:''}
 			}
 		},
 		status: {type: String, required: true, default: 'unfilled'},
@@ -128,12 +103,12 @@ const customerSchema = new customerConnection.Schema({
 	payout: {
 		status: {type: String, required: true, enum: ['pending', 'requested', 'approved'], default: 'pending'},
 		account: {
-			name: String,
-			account_number: String,
-			ifsc: String
+			name: {type: String,default:''},
+			account_number: {type: String,default:''},
+			ifsc: {type: String,default:''}
 		}
 	},
-	pass_code: String
+	pass_code: {type: String,default:''}
 });
 customerSchema.plugin(timestamps);
 

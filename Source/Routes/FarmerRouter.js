@@ -5,11 +5,6 @@ const Router = Express.Router();
 const {validationResult} = require('express-validator');
 const FarmerController = require('../Controllers/FarmerController');
 const FarmerValidation = require('../Validators/FarmerValidation');
-const multer = require('multer');
-const winston = require('winston');
-const logger = winston.createLogger({
-	transports: [new winston.transports.Console()]
-});
 const Responder = require('../App/Responder');
 
 Router.post('/sign_up', FarmerValidation.farmerValidation(), (req, res) => {
