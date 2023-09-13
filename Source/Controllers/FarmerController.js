@@ -1,8 +1,7 @@
-const Responder = require('../App/Responder');
 const {getNanoId, isEmpty} = require('../Helpers/Utils');
 const {createUserAndTokenInKong} = require('../Helpers/KongUtils');
 const FarmerModel = require('../Models/FarmerModel');
-const {createFarmer,findOneFarmer}=require('../Repository/FarmerRepository');
+const {createFarmer, findOneFarmer} = require('../Repository/FarmerRepository');
 
 const Controllers = {
 	/**
@@ -69,7 +68,7 @@ const Controllers = {
 			let createData = await FarmerModel.create(farmerData);
 			if (!isEmpty(createData)) {
 				let createKongUser = await createUserAndTokenInKong({
-					id:'farmer_' + createData.farmer_id
+					id: 'farmer_' + createData.farmer_id
 				});
 				if (createKongUser?.error) {
 					return {error: true, message: 'Please provide valid data'};
@@ -78,9 +77,9 @@ const Controllers = {
 						error: false, message: 'Farmer created', data: createData
 					};
 				}
-			}return {error: true, message: 'data create failure'};
+			}
+			return {error: true, message: 'data create failure'};
 		} catch (error) {
-			console.log(error);
 			return {error: true, message: 'Something went wrong!'};
 		}
 	},
@@ -89,11 +88,19 @@ const Controllers = {
 	 * @param {*} farmerId
 	 * @param {*} res
 	 */
-	details: (farmerId, res) => {
-		FarmerModel.find({farmer_id: farmerId}, (err, getFarmerData) => {
-			if (!err && getFarmerData) return Responder.sendSuccessData(res, 'Farmer Details', getFarmerData);
-			return Responder.sendFailureMessage(res, 'Farmer not found');
-		});
+	details: async (farmerId) => {
+		try {
+			if (isEmpty(farmerId)) {
+				return {error: true, message: 'farmer_id is empty'};
+			}
+			let farmer = await findOneFarmer({farmer_id: farmerId});
+			if (isEmpty(farmer)) {
+				return {error: true, message: 'Invalid Credentials!'};
+			}
+			return {error: false, message: 'Farmer Details:', data: farmer};
+		} catch {
+			return {error: true, message: 'Something went Wrong!'};
+		}
 	}
 };
 
