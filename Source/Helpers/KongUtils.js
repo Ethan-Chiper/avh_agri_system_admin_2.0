@@ -52,7 +52,6 @@ const KongUtils = {
 				}
 			};
 
-			// eslint-disable-next-line no-await-in-loop
 			let {error, body} = await networkCall(postData);
 			if (!isEmpty(error) || isEmpty(body)) {
 				return {error: true, message: 'Acl group not created.'};
