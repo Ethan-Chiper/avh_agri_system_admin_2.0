@@ -23,8 +23,16 @@ Router.post('/sign_up', FarmerValidation.farmerValidation(), async (req, res) =>
 	}
 });
 
-Router.get('/details/:farmerId', (req, res) => {
-	return FarmerController.details(req.params.farmerId, res);
+Router.get('/details/:farmerId', async (req, res) => {
+	try{
+		let {error, message, data} = await FarmerController.details(req.params.farmerId);
+		if (!isEmpty(data) && error === false) {
+			return Responder.sendSuccessData(res, message, data);
+		}
+		return Responder.sendFailureMessage(res, message, 400);
+	}catch(error) {
+		return Responder.sendFailureMessage(res, error, 500);
+	}
 });
 
 Router.get('/sign-in', FarmerValidation.LoginValidation(), (req, res) => {
