@@ -6,10 +6,6 @@
 const mongoose = require('mongoose');
 const Config = require('./Config');
 const DB_URL = Config.AGRI_DB_URL;
-const winston = require('winston');
-const logger = winston.createLogger({
-	transports: [new winston.transports.Console()]
-});
 
 const MultiDBConnection = {
 	establish: async (Express) => {
