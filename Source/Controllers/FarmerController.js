@@ -80,7 +80,6 @@ const Controllers = {
 				}
 			}return {error: true, message: 'data create failure'};
 		} catch (error) {
-			console.log(error);
 			return {error: true, message: 'Something went wrong!'};
 		}
 	},
