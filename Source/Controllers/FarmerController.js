@@ -1,23 +1,25 @@
-/* eslint-disable no-unused-vars */
 const Responder = require('../App/Responder');
-const Utils = require('../Helpers/Utils');
+const {getNanoId, isEmpty} = require('../Helpers/Utils');
+const {createUserAndTokenInKong} = require('../Helpers/KongUtils');
 const FarmerModel = require('../Models/FarmerModel');
-const winston = require('winston');
-const logger = winston.createLogger({
-	transports: [new winston.transports.Console()]
-});
+const {createFarmer,findOneFarmer}=require('../Repository/FarmerRepository');
 
 const Controllers = {
 	/**
 	 * Farmer SignUp
 	 * @param {*} req
-	 * @param {*} res
 	 */
-	signUp : async (req, res) => {
+	signUp: async (req) => {
 		try {
 			let data = req.body;
+			let findMail = await findOneFarmer({
+				condition: {email: data?.email}
+			});
+			if (!isEmpty(findMail)) {
+				return {error: true, message: 'Email already exists!'};
+			}
 			let farmerData = {
-				farmer_id: Utils.getNanoId(),
+				farmer_id: getNanoId(),
 				name: {
 					full: data?.name?.full
 				},
@@ -65,20 +67,21 @@ const Controllers = {
 				}
 			};
 			let createData = await FarmerModel.create(farmerData);
-			if (createData) {
-				let userId = 'farmer' + '_' + createData.farmer_id;
-				await Utils.createUserAndTokenInKong(userId, (token) => {
-					console.log(12, token);
-					if (token)
-						return Responder.sendSuccessData(res, ' account created successfully', {
-							user_details: createData
-						});
+			if (!isEmpty(createData)) {
+				let createKongUser = await createUserAndTokenInKong({
+					id:'farmer_' + createData.farmer_id
 				});
-				return Responder.sendSuccessData(res, 'Farmer create', createData);
-			}
-			return Responder.sendFailureMessage(res, 'Farmer create failure');
+				if (createKongUser?.error) {
+					return {error: true, message: 'Please provide valid data'};
+				} else {
+					return {
+						error: false, message: 'Farmer created', data: createData
+					};
+				}
+			}return {error: true, message: 'data create failure'};
 		} catch (error) {
-			return Responder.sendFailureMessage(res, 'User is invalid');
+			console.log(error);
+			return {error: true, message: 'Something went wrong!'};
 		}
 	},
 	/**
@@ -86,13 +89,12 @@ const Controllers = {
 	 * @param {*} farmerId
 	 * @param {*} res
 	 */
-	details : (farmerId, res) => {
+	details: (farmerId, res) => {
 		FarmerModel.find({farmer_id: farmerId}, (err, getFarmerData) => {
-			logger.error(err);
 			if (!err && getFarmerData) return Responder.sendSuccessData(res, 'Farmer Details', getFarmerData);
 			return Responder.sendFailureMessage(res, 'Farmer not found');
 		});
 	}
-}
+};
 
 module.exports = Controllers;

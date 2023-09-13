@@ -27,7 +27,6 @@ const KongUtils = {
 			} else {
 				let userId = data?.id;
 				await KongUtils.generateAuthToken(userId);
-				// await KongUtils.addUserInGroup(data);
 			}
 			return {error: false, message: 'Kong User created Successfully'};
 		} catch (error) {
