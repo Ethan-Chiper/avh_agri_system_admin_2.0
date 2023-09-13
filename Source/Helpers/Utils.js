@@ -46,34 +46,6 @@ const utils = {
 	 * @param user
 	 */
 	generateAuthToken: async (user) => {
-		// let exp = moment().add(1, 'days').unix();
-		//
-		// Request.post(
-		// 	{
-		// 		url: Config.KONG_URL + user + '/jwt',
-		// 		headers: {
-		// 			'Content-Type': 'application/x-www-form-urlencoded'
-		// 		}
-		// 	},
-		// 	(err, response, body) => {
-		// 		if (body) {
-		// 			let bodyResponse = JSON.parse(body);
-		// 			try {
-		// 				let token = jwt.sign(
-		// 					{
-		// 						iss: bodyResponse.key,
-		// 						exp: exp
-		// 					},
-		// 					bodyResponse.secret
-		// 				);
-		// 				callback(token, body);
-		// 			} catch (err) {
-		// 				console.log('Exception from generateAuthToken' + err.message);
-		// 				callback(null, {});
-		// 			}
-		// 		} else callback(null, {});
-		// 	}
-		// );
 		try {
 			let token;
 			let postData = {
@@ -156,7 +128,6 @@ const utils = {
 				postData['headers'] = headers;
 			}
 
-			// to decide method for http request
 			postData['method'] = options?.method || 'GET';
 
 			if (!utils.isEmpty(options?.body)) {

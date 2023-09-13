@@ -1,16 +1,26 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 const Express = require('express');
 const Router = Express.Router();
 const {validationResult} = require('express-validator');
 const FarmerController = require('../Controllers/FarmerController');
 const FarmerValidation = require('../Validators/FarmerValidation');
 const Responder = require('../App/Responder');
+const {isEmpty} = require('../Helpers/Utils');
 
-Router.post('/sign_up', FarmerValidation.farmerValidation(), (req, res) => {
-	let hasErrors = validationResult(req);
-	if (!hasErrors.isEmpty()) return Responder.sendFailureMessage(res, '' + hasErrors.errors[0].msg, 422);
-	else return FarmerController.signUp(req, res);
+Router.post('/sign_up', FarmerValidation.farmerValidation(), async (req, res) => {
+	try {
+		let hasErrors = validationResult(req);
+		if (hasErrors.isEmpty()) {
+			let {error, message, data} = await FarmerController.signUp(req, res);
+			if (!isEmpty(data) && error === false) {
+				return Responder.sendSuccessData(res, message, data);
+			}
+			return Responder.sendFailureMessage(res, message, 400);
+		} else {
+			return Responder.sendFailureMessage(res, hasErrors?.errors[0]?.msg, 422);
+		}
+	} catch (error) {
+		return Responder.sendFailureMessage(res, error, 500);
+	}
 });
 
 Router.get('/details/:farmerId', (req, res) => {
