@@ -43,7 +43,7 @@ const customerSchema = new customerConnection.Schema({
 			text_color: String,
 			icon: String
 		},
-		is_ippopay_branding: {type: Boolean, default: true},
+		is_agri_sys_branding: {type: Boolean, default: true},
 		is_terms_page: {type: Boolean, default: false}
 	},
 	acc_type: {type: String, default: 'individual'},

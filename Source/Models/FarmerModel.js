@@ -49,7 +49,7 @@ const farmerSchema = new FarmerConnection.Schema({
 			text_color: {type: String, default: ''},
 			icon: {type: String, default: ''}
 		},
-		is_ippopay_branding: {type: Boolean, default: true},
+		is_agri_sys_branding: {type: Boolean, default: true},
 		is_terms_page: {type: Boolean, default: false}
 	},
 

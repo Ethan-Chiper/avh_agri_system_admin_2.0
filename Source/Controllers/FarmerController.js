@@ -60,7 +60,7 @@ const Controllers = {
 						text_color: '',
 						icon: ''
 					},
-					is_ippopay_branding: data?.is_afw_branding ?? true,
+					is_agri_sys_branding: data?.is_afw_branding ?? true,
 					is_terms_page: data?.is_terms_page ?? false
 				}
 			};
