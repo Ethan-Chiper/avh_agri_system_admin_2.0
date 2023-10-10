@@ -1,13 +1,9 @@
+/* eslint-disable unicorn/prefer-module */
 const Express = require('express');
 const App = Express();
 let helmet = require('helmet');
 App.use(Express.json());
 App.use(helmet.hidePoweredBy());
-
-const winston = require('winston');
-const logger = winston.createLogger({
-	transports: [new winston.transports.Console()]
-});
 
 require('../Source/App/MultiConnection').establish(App);
 require('../Source/Controllers/SettlementController').generateSettlementCron();

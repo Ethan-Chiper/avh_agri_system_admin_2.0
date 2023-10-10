@@ -20,7 +20,8 @@ module.exports = {
 		ecmaVersion: 'latest'
 	},
 	rules: {
-		'no-console': 'warn',
-		'no-var': 'error'
+		'no-console': 'off',
+		'no-var': 'off',
+		'unicorn/prefer-module':'off'
 	}
 };
