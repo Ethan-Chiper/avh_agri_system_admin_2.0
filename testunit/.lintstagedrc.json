@@ -1,0 +1,14 @@
+{
+	"*.cjs": [
+		"npx prettier --cache --write",
+		"npx eslint --cache --fix"
+	],
+	"*.js": [
+		"npx prettier --cache --write",
+		"npx eslint --cache --fix"
+	],
+	"*.json": [
+		"npx prettier --cache --write",
+		"npx eslint --cache --fix"
+	]
+}
