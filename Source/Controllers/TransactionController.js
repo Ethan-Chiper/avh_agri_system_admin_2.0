@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/prevent-abbreviations */
+/* eslint-disable unicorn/prefer-ternary */
 const TransactionModel = require('../Models/TransactionModel');
 const TransactionUpiModel = require('../Models/Transaction_upiModel');
 const Responder = require('../App/Responder');

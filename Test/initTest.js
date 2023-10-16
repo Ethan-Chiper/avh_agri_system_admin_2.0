@@ -1,3 +1,4 @@
+/* eslint-disable node/no-unpublished-require */
 const Expect = require('chai').expect;
 describe('sample test', function () {
 	it('sample test for skip', function (done) {

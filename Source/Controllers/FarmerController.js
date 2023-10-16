@@ -1,7 +1,12 @@
+/* eslint-disable jsdoc/require-returns */
+/* eslint-disable unicorn/numeric-separators-style */
+/* eslint-disable unicorn/prevent-abbreviations */
+/* eslint-disable unicorn/prefer-ternary */
+/* eslint-disable node/no-unsupported-features/es-syntax */
 const {getNanoId, isEmpty} = require('../Helpers/Utils');
 const {createUserAndTokenInKong} = require('../Helpers/KongUtils');
 const FarmerModel = require('../Models/FarmerModel');
-const {createFarmer, findOneFarmer} = require('../Repository/FarmerRepository');
+const {findOneFarmer} = require('../Repository/FarmerRepository');
 
 const Controllers = {
 	/**
@@ -80,7 +85,7 @@ const Controllers = {
 			}
 			return {error: true, message: 'data create failure'};
 		} catch (error) {
-			return {error: true, message: 'Something went wrong!'};
+			return {error: true, message: error};
 		}
 	},
 	/**

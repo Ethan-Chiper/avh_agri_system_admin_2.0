@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 const Express = require('express');
 const Router = Express.Router();
 const {validationResult} = require('express-validator');
@@ -6,11 +7,11 @@ const FarmerValidation = require('../Validators/FarmerValidation');
 const Responder = require('../App/Responder');
 const {isEmpty} = require('../Helpers/Utils');
 
-Router.post('/sign_up', FarmerValidation.farmerValidation(), async (req, res) => {
+Router.post('/sign_up', FarmerValidation.farmerValidation(), async (request, res) => {
 	try {
-		let hasErrors = validationResult(req);
+		let hasErrors = validationResult(request);
 		if (hasErrors.isEmpty()) {
-			let {error, message, data} = await FarmerController.signUp(req, res);
+			let {error, message, data} = await FarmerController.signUp(request, res);
 			if (!isEmpty(data) && error === false) {
 				return Responder.sendSuccessData(res, message, data);
 			}
@@ -23,9 +24,9 @@ Router.post('/sign_up', FarmerValidation.farmerValidation(), async (req, res) =>
 	}
 });
 
-Router.get('/details/:farmerId', async (req, res) => {
+Router.get('/details/:farmerId', async (request, res) => {
 	try{
-		let {error, message, data} = await FarmerController.details(req.params.farmerId);
+		let {error, message, data} = await FarmerController.details(request.params.farmerId);
 		if (!isEmpty(data) && error === false) {
 			return Responder.sendSuccessData(res, message, data);
 		}
@@ -35,14 +36,13 @@ Router.get('/details/:farmerId', async (req, res) => {
 	}
 });
 
-Router.get('/sign-in', FarmerValidation.LoginValidation(), (req, res) => {
-	let hasErrors = validationResult(req);
-	if (!hasErrors.isEmpty()) return Responder.sendFailureMessage(res, '' + hasErrors.errors[0].msg, 422);
-	else return FarmerController.signIn(req, res);
+Router.get('/sign-in', FarmerValidation.LoginValidation(), (request, res) => {
+	let hasErrors = validationResult(request);
+	return hasErrors.isEmpty() ? FarmerController.signIn(request, res) : Responder.sendFailureMessage(res, '' + hasErrors.errors[0].msg, 422);
 });
 
-Router.get('/farmer_count', (req, res) => {
-	return FarmerController.formerCount(req, res);
+Router.get('/farmer_count', (request, res) => {
+	return FarmerController.formerCount(request, res);
 });
 
 module.exports = Router;

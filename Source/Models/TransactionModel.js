@@ -67,14 +67,14 @@ const transactionSchema = new transactionConnection.Schema({
 	},
 	is_reinitiated: {type: Boolean},
 	is_intl_payment: {type: Boolean},
-	settlement_id: {type: String, default: null},
-	settlement_status: {type: String, default: null},
-	settlement_date: {type: String, default: null},
+	settlement_id: {type: String, default: undefined},
+	settlement_status: {type: String, default: undefined},
+	settlement_date: {type: String, default: undefined},
 	notes: {type: String},
 	status: {type: String},
 	failure_reason: {
-		transaction: {type: String, default: null},
-		recharge: {type: String, default: null}
+		transaction: {type: String, default: undefined},
+		recharge: {type: String, default: undefined}
 	},
 	bill_proof: {type: String},
 	partner: {type: Object},

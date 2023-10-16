@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 /* eslint-disable no-unused-vars */
 // const admin = require("mongeese").create();
 // const farmer = require("mongeese").create();

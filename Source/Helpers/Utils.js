@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const {customAlphabet} = require('nanoid');
 const Request = require('request');
 const Config = require('../App/Config');
@@ -134,7 +135,7 @@ const utils = {
 				try {
 					postData['body'] = JSON.stringify(options?.body);
 				} catch (error) {
-					return {error: 'unable to stringify body'};
+					return {error: error};
 				}
 			}
 			let errorData;

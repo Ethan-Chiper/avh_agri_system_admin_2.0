@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 const Express = require('express');
 const Router = Express.Router();
 const CustomerController = require('../Controllers/CustomerController');
