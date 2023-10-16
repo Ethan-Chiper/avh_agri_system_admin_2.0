@@ -1,3 +1,6 @@
+/* eslint-disable unicorn/filename-case */
+// eslint-disable-next-line unicorn/filename-case
+/* eslint-disable unicorn/prevent-abbreviations */
 const {getNanoId,isEmpty} = require('../Helpers/Utils');
 const {createCustomer, findOneCustomer} = require('../Repository/CustomerRepository');
 const Controllers = {

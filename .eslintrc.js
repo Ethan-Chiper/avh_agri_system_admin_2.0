@@ -22,6 +22,8 @@ module.exports = {
 	rules: {
 		'no-console': 'off',
 		'no-var': 'off',
-		'unicorn/prefer-module':'off'
+		'unicorn/prefer-module':'off',
+		'unicorn/filename-case': 'off',
+		'unicorn/numeric-separators-style':'off'
 	}
 };
