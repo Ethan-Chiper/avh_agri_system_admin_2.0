@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/text-encoding-identifier-case */
 /* eslint-disable no-undef */
 const SonarQubeScanner = require('sonarqube-scanner');
 

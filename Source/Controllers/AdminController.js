@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/prefer-ternary */
+/* eslint-disable unicorn/numeric-separators-style */
 const {getNanoId, isEmpty,createUserAndTokenInKong} = require('../Helpers/Utils');
 const {createAdmin,findOneAdmin} = require('../Repository/AdminRepository');
 const Controllers = {
@@ -48,7 +50,7 @@ const Controllers = {
 			}
 			return {error: true, message: 'data create failure'};
 		} catch (error) {
-			return {error: true, message: 'Something went wrong!'};
+			return {error: true, message: error};
 		}
 	},
 	/***
@@ -65,8 +67,8 @@ const Controllers = {
 			if (isEmpty(admin)) {
 				return {error: true, message: 'Invalid Credentials!'};
 			}return {error: false, message: 'Admin Details:', data: admin};
-		}catch{
-			return {error: true, message: 'Something went Wrong!'};
+		}catch(error){
+			return {error: true, message: error};
 		}
 	}
 };

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const Config = require('../App/Config');
 const {isEmpty, networkCall} = require('./Utils');
 const jwt = require('jsonwebtoken');

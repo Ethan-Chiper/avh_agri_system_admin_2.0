@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const {check} = require('express-validator');
 
 const validation = {
